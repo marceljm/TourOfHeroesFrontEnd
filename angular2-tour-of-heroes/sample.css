@@ -1,0 +1,9 @@
+.error {
+    color: red;
+}
+
+button.delete-button {
+    float: right;
+    background-color: gray !important;
+    color: white;
+}

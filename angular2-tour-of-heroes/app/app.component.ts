@@ -1,26 +1,17 @@
-import { Component } from '@angular/core';
-
-import { HeroService } from './hero.service';
-
-import { Hero } from './hero';
-import { HeroDetailComponent } from './hero-detail.component';
+import { Component }          from '@angular/core';
+import { ROUTER_DIRECTIVES }  from '@angular/router';
+import { HeroService }        from './hero.service';
 
 @Component({
     selector: 'my-app',
-    templateUrl: 'my-app.html',
-    styleUrls: ['my-app.css'],
-    directives: [HeroDetailComponent],
-    providers: [HeroService]
+    templateUrl: 'app/app.component.html',
+    styleUrls: ['app/app.component.css'],
+    directives: [ROUTER_DIRECTIVES],
+    providers: [
+        HeroService,
+    ]
 })
 
 export class AppComponent {
-    constructor(private heroService: HeroService) { }
-
     title = 'Tour of Heroes';
-    heroes: Hero[];
-    selectedHero: Hero;
-
-    onSelect(hero: Hero) {
-        this.selectedHero = hero;
-    }
 }
