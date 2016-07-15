@@ -1,6 +1,8 @@
 import { Component }          from '@angular/core';
 import { ROUTER_DIRECTIVES }  from '@angular/router';
 import { HeroService }        from './hero.service';
+import { HTTP_PROVIDERS } from '@angular/http';
+import './rxjs-operators';
 
 @Component({
     selector: 'my-app',
@@ -9,6 +11,7 @@ import { HeroService }        from './hero.service';
     directives: [ROUTER_DIRECTIVES],
     providers: [
         HeroService,
+        HTTP_PROVIDERS
     ]
 })
 

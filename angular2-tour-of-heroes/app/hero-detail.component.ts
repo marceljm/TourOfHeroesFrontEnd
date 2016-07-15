@@ -30,8 +30,9 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
             if (params['id'] !== undefined) {
                 let id = +params['id'];
                 this.navigated = true;
-                this.heroService.getHero(id)
-                    .then(hero => this.hero = hero);
+                this.heroService.getHero(id).subscribe(
+                    hero => this.hero = hero,
+                    error => this.error = <any>error);
             } else {
                 this.navigated = false;
                 this.hero = new Hero();
@@ -46,11 +47,9 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
     save() {
         this.heroService
             .save(this.hero)
-            .then(hero => {
-                this.hero = hero; // saved hero, w/ id if new
-                this.goBack(hero);
-            })
-            .catch(error => this.error = error); // TODO: Display error message
+            .subscribe(
+            hero => { this.hero = hero; this.goBack(hero); },
+            error => this.error = <any>error);
     }
 
     goBack(savedHero: Hero = null) {

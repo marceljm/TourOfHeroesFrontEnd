@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 
 export class DashboardComponent implements OnInit {
     heroes: Hero[] = [];
+    errorMessage: string;
 
     constructor(
         private router: Router,
@@ -19,8 +20,14 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.getHeroes();
+    }
+
+    getHeroes() {
         this.heroService.getHeroes()
-            .then(heroes => this.heroes = heroes.slice(1, 5));
+            .subscribe(
+            heroes => this.heroes = heroes,
+            error => this.errorMessage = <any>error);
     }
 
     gotoDetail(hero: Hero) {

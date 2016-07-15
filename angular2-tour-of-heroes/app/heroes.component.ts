@@ -15,49 +15,55 @@ export class HeroesComponent implements OnInit {
     heroes: Hero[];
     selectedHero: Hero;
     addingHero = false;
-    error: any;
+    errorMessage: string;
 
     constructor(
         private router: Router,
         private heroService: HeroService) { }
 
-    getHeroes() {
-        this.heroService
-            .getHeroes()
-            .then(heroes => this.heroes = heroes)
-            .catch(error => this.error = error);
+    ngOnInit() {
+        this.getHeroes();
     }
 
-    addHero() {
+    getHeroes() {
+        this.heroService.getHeroes()
+            .subscribe(
+            heroes => this.heroes = heroes,
+            error => this.errorMessage = <any>error);
+    }
+
+    addHero(name: string) {
         this.addingHero = true;
         this.selectedHero = null;
+
+        if (!name) { return; }
+        this.heroService.addHero(name)
+            .subscribe(
+            hero => this.heroes.push(hero),
+            error => this.errorMessage = <any>error);
     }
 
     close(savedHero: Hero) {
         this.addingHero = false;
-        if (savedHero) { this.getHeroes(); }
+        if (savedHero) {
+            this.getHeroes();
+        }
     }
 
     deleteHero(hero: Hero, event: any) {
         event.stopPropagation();
         this.heroService
             .delete(hero)
-            .then(res => {
-                this.heroes = this.heroes.filter(h => h !== hero);
-                if (this.selectedHero === hero) { this.selectedHero = null; }
-            })
-            .catch(error => this.error = error);
-    }
-
-    ngOnInit() {
-        this.getHeroes();
+            .subscribe(
+            hero => this.selectedHero = null,
+            error => this.errorMessage = <any>error);
     }
 
     onSelect(hero: Hero) {
         this.selectedHero = hero;
         this.addingHero = false;
     }
-    
+
     gotoDetail() {
         this.router.navigate(['/detail', this.selectedHero.id]);
     }
