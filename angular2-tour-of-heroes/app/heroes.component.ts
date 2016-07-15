@@ -55,7 +55,7 @@ export class HeroesComponent implements OnInit {
         this.heroService
             .delete(hero)
             .subscribe(
-            hero => this.selectedHero = null,
+            hero => { this.selectedHero = null; this.heroes.splice(this.heroes.indexOf(hero, 0), 1) },
             error => this.errorMessage = <any>error);
     }
 
