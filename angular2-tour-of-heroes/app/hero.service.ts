@@ -5,7 +5,7 @@ import { Observable }     from 'rxjs/Observable';
 
 @Injectable()
 export class HeroService {
-    private heroesUrl = 'http://localhost:8080/TourOfHeroesBackEnd/rest/heroes/';
+    private heroesUrl = 'http://ctaro2-7831:8080/TourOfHeroesBackEnd/rest/heroes/';
 
     constructor(private http: Http) { }
 
